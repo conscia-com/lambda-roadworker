@@ -82,7 +82,7 @@ I've choosen a schedule that triggers the backup every 6 hours.
 
 These resources could easily be set up by hand, but I've included a Terraform file to make it a bit easier to deploy.
 
-You should review the route53-backup.tf file, edit the ```s3bucketname``` variable and change it from
+You should review the [route53-backup.tf](../master/route53-backup.tf) file, edit the ```s3bucketname``` variable and change it from
 ```hennings-roadworker-backup-bucket``` to something that's unique for your account. Then run a Terraform plan to 
 review the resources that are to be created:
 
