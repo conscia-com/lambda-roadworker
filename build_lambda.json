@@ -1,0 +1,71 @@
+{
+  "builders": [
+    {
+      "type": "amazon-ebs",
+      "communicator": "ssh",
+      "ssh_pty": "true",
+      "region": "eu-west-1",
+      "source_ami": "ami-f9dd458a",
+      "instance_type": "t2.medium",
+      "ssh_username": "ec2-user",
+      "ami_name": "build-lambda {{timestamp}}"
+    }
+  ],
+  "provisioners": [
+    {
+      "type": "shell",
+      "inline": [
+        "sudo yum -y groupinstall \"Development Tools\"",
+        "sudo yum -y install libpcap-devel.x86_64 libtool libyaml-devel",
+        "sudo mkdir /var/task",
+        "sudo chown -R ec2-user:ec2-user /var/task",
+        "sudo chown -R ec2-user:ec2-user /var",
+        "gpg --keyserver hkp://keys.gnupg.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3",
+        "curl -sSL https://get.rvm.io | bash -s stable --path /var/task/rvm"
+      ]
+    },
+    {
+      "type": "file",
+      "source": "ruby-env/install_ruby.bash",
+      "destination": "install_ruby.bash"
+    },
+    {
+      "type": "file",
+      "source": "ruby-env/cleanup.bash",
+      "destination": "cleanup.bash"
+    },
+    {
+      "type": "file",
+      "source": "lambda_function.py",
+      "destination": "/var/task/lambda_function.py"
+    },
+    {
+      "type": "file",
+      "source": "roadwork",
+      "destination": "/var/task/roadwork"
+    },
+    {
+      "type": "shell",
+      "inline": [
+        "chmod +x install_ruby.bash",
+        "./install_ruby.bash",
+        "cd /var/task",
+        "chmod +x roadwork",
+        "bash $HOME/cleanup.bash",
+        "zip -q -r $HOME/roadwork.zip *"
+      ]
+    },
+    {
+      "type": "file",
+      "source": "roadwork.zip",
+      "destination": "roadwork.zip",
+      "direction": "download"
+    },
+    {
+      "type": "shell",
+      "inline": [
+        "exit 137"
+      ]
+    }
+  ]
+}
