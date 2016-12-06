@@ -1,11 +1,13 @@
 # Running roadworker in AWS Lambda to backup Route 53
 
-Website: [https://dashsoft.dk](https://dashsoft.dk)
-Blog post: TBD
+Cheap and low-maintenance solution to back up Route53 to S3 using AWS Lambda.
 
 ![Dashsoft](https://dashsoft.dk/static/images/logo.png "Dashsoft logo")
 
-Cheap and low-maintenance solution to back up Route53 to S3 using AWS Lambda.
+Blog post: TBD
+
+Website: [https://dashsoft.dk](https://dashsoft.dk)
+
 
 ## Installing
 
@@ -20,7 +22,7 @@ Packer also has an [installation guide](https://www.packer.io/docs/installation.
 
 ### Building the Lambda code
 
-You should check that the ```source_ami``` specified in [build_lambda.json](../blob/master/build_lambda.json)
+You should check that the ```source_ami``` specified in [build_lambda.json](../master/build_lambda.json)
  (ami-f9dd458a) still corresponds to [the current lambda 
 environment](http://docs.aws.amazon.com/lambda/latest/dg/current-supported-versions.html "Lambda Execution Environment
 and Available Libraries").
@@ -130,7 +132,7 @@ the return codes and the size of the backup file as custom CloudWatch metrics us
 or [boto3](http://boto3.readthedocs.io/en/latest/reference/services/cloudwatch.html#CloudWatch.Client.put_metric_data).
 
 An alternative to explicitly publishing metrics would be to print out the size of the backup file from the
-[python lambda handler](../blob/master/lambda_function.py) in a format that's recognizable. It'll end up in the
+[python lambda handler](../master/lambda_function.py) in a format that's recognizable. It'll end up in the
 Lambda Cloudwatch logstream where it could be picked up and published as a metric by a  
 [Cloudwatch Logs metric filters](https://www.terraform.io/docs/providers/aws/r/cloudwatch_log_metric_filter.html).
 
