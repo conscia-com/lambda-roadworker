@@ -100,7 +100,7 @@ There's now a terraform.tfstate file in the directory. If you ever want to chang
 you just created, then you need to save- and manage this file.
 
 There's a range of options for doing this - see the Terraform documentation on
-[Remote State](https://www.terraform.io/docs/state/remote/index.html) 
+[Remote State](https://www.terraform.io/docs/state/remote/index.html) or consider using
 [Terragrunt](https://blog.gruntwork.io/add-automatic-remote-state-locking-and-configuration-to-terraform-with-terragrunt-656a57565a4d).
 
 Loosing your Terraform state file is usually a pretty bad thing, but in this case, the number of resources isn't very
@@ -133,8 +133,8 @@ or [boto3](http://boto3.readthedocs.io/en/latest/reference/services/cloudwatch.h
 
 An alternative to explicitly publishing metrics would be to print out the size of the backup file from the
 [python lambda handler](../master/lambda_function.py) in a format that's recognizable. It'll end up in the
-Lambda Cloudwatch logstream where it could be picked up and published as a metric by a  
-[Cloudwatch Logs metric filters](https://www.terraform.io/docs/providers/aws/r/cloudwatch_log_metric_filter.html).
+Lambda Cloudwatch logstream where it could be picked up and published as a metric by 
+a [Cloudwatch Logs metric filter](https://www.terraform.io/docs/providers/aws/r/cloudwatch_log_metric_filter.html).
 
 The AWS documentations has [more information about how to filter 
 and monitor log data](http://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/MonitoringLogData.html).
