@@ -3,19 +3,25 @@ version: 0.1
 phases:
   install:
     commands:
-      - echo Nothing to do in the install phase...
+      - yum -y groupinstall "Development Tools"
+      - yum -y install libpcap-devel.x86_64 libtool libyaml-devel
+      - gpg --keyserver hkp://keys.gnupg.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3
+      - mkdir -p /var/task
   pre_build:
     commands:
-      - echo Nothing to do in the pre_build phase...
+      - bash install_rvm.bash
   build:
     commands:
       - echo Build started on `date`
-      - mkdir -p /var/task
-      - cp LICENSE /var/task/
+      - bash codebuild/build_roadworker.bash
   post_build:
     commands:
+      - cp lambda_function.py /var/task/
+      - cp roadwork /var/task/
       - echo Build completed on `date`
 artifacts:
   files:
-    - /var/task/LICENSE
+    - /var/task/rvm
+    - /var/task/roadwork
+    - /var/task/lambda_function.py
   discard-paths: yes
