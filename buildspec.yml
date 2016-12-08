@@ -15,10 +15,9 @@ phases:
     commands:
       - echo Build started on `date`
       - bash codebuild/build_roadworker.bash
-      - mv /var/task/rvm .
   post_build:
     commands:
-      - bash ruby-env/cleanup.bash
+      - mv /var/task/rvm .
       - echo Build completed on `date`
 artifacts:
   files:
