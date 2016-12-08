@@ -9,7 +9,7 @@ phases:
       - mkdir -p /var/task
   pre_build:
     commands:
-      - bash install_rvm.bash
+      - bash codebuild/install_rvm.bash
   build:
     commands:
       - echo Build started on `date`
