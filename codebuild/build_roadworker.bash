@@ -7,4 +7,4 @@ source /var/task/rvm/scripts/rvm
 bash ruby-env/install_ruby.bash
 
 cd /var/task
-bash $HOME/ruby-env/cleanup.bash
+bash /tmp/cleanup.bash

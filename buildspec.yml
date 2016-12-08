@@ -10,6 +10,7 @@ phases:
   pre_build:
     commands:
       - bash codebuild/install_rvm.bash
+      - cp ruby-env/cleanup.bash /tmp/
   build:
     commands:
       - echo Build started on `date`
