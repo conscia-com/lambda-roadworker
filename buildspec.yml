@@ -22,7 +22,5 @@ phases:
       - echo Build completed on `date`
 artifacts:
   files:
-    - /var/task/rvm
-    - /var/task/roadwork
-    - /var/task/lambda_function.py
+    - /var/task/**/*
   discard-paths: yes
