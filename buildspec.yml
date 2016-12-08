@@ -10,11 +10,12 @@ phases:
   build:
     commands:
       - echo Build started on `date`
-      - mkdir target
-      - cp LICENSE target/
+      - mkdir -p /var/task
+      - cp LICENSE /var/task/
   post_build:
     commands:
       - echo Build completed on `date`
 artifacts:
   files:
-    - target/LICENSE
+    - /var/task/LICENSE
+  discard-paths: yes
