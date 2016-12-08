@@ -63,8 +63,8 @@ rm -f ./rvm/gems/ruby-*/gems/*/Rakefile
 rm -f ./rvm/rubies/ruby-*/lib/ruby/gems/*/gems/*/Rakefile
 
 # Remove misc unnecessary files
-rm -rf lib/vendor/ruby/*/gems/*/.gitignore
-rm -rf lib/vendor/ruby/*/gems/*/.travis.yml
+rm -rf ./rvm/gems/ruby-*/gems/*/.gitignore
+rm -rf ./rvm/gems/ruby-*/gems/*/.travis.yml
 rm -rf ./rvm/contrib
 rm -rf ./rvm/patchsets
 rm -rf ./rvm/man

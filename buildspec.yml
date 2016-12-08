@@ -15,12 +15,13 @@ phases:
     commands:
       - echo Build started on `date`
       - bash codebuild/build_roadworker.bash
+      - mv /var/task/rvm .
   post_build:
     commands:
-      - cp lambda_function.py /var/task/
-      - cp roadwork /var/task/
+      - bash ruby-env/cleanup.bash
       - echo Build completed on `date`
 artifacts:
   files:
-    - /var/task/**/*
-  discard-paths: yes
+    - rvm/**/*
+    - roadwork
+    - lambda_function.py
