@@ -75,4 +75,6 @@ find rvm/gems/ruby-*/gems/*/ext -type f -name "*.c" | xargs rm -f
 find rvm/gems/ruby-*/gems/*/ext -type f -name "mkmf.log" | xargs rm -f
 find rvm/gems/ruby-*/gems/*/ext -type f -name "Makefile" | xargs rm -f
 
+mkdir rvm/tmp
+
 exit 0
