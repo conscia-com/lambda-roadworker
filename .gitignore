@@ -1,8 +1,9 @@
-# IDEA
+# IDEA + Terraform
 .idea
 *.zip
 *.pem
 terraform.tfstate.backup
+terraform.tfstate
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
