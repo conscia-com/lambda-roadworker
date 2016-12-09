@@ -3,14 +3,8 @@ set -e
 
 export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$LAMBDA_TASK_ROOT/rvm/usr/lib
 
-echo "-- sourcing"
-
 source "$LAMBDA_TASK_ROOT/rvm/scripts/rvm"
 
-echo "-- using"
-
 rvm use 2.3 --quiet
-
-echo "-- execing"
 
 exec roadwork $*

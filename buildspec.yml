@@ -18,9 +18,11 @@ phases:
   post_build:
     commands:
       - mv /var/task/rvm .
+      - cp rvmrc .rvmrc
       - echo Build completed on `date`
 artifacts:
   files:
+    - .rvmrc
     - rvm/**/*
     - roadwork
     - lambda_function.py
