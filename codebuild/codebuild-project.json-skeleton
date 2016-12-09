@@ -22,7 +22,7 @@
         "computeType": "BUILD_GENERAL1_SMALL",
         "environmentVariables": []
     }, 
-    "serviceRole": "arn:aws:iam::__add_the_account_id__:role/service-role/codebuild-roadworker-lambda-service-role",
+    "serviceRole": "arn:aws:iam::__add_the_account_id__:role/RoadworkerLambdaCodebuildRole",
     "timeoutInMinutes": 30,
     "tags": []
 }
