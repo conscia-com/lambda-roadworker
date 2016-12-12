@@ -1,0 +1,28 @@
+version: 0.1
+
+phases:
+  install:
+    commands:
+      - yum -y groupinstall "Development Tools"
+      - yum -y install libpcap-devel.x86_64 libtool libyaml-devel
+      - gpg --keyserver hkp://keys.gnupg.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3
+      - mkdir -p /var/task
+  pre_build:
+    commands:
+      - bash codebuild/install_rvm.bash
+      - cp codebuild/cleanup.bash /tmp/
+  build:
+    commands:
+      - echo Build started on `date`
+      - bash codebuild/build_roadworker.bash
+  post_build:
+    commands:
+      - mv /var/task/rvm .
+      - cp codebuild/rvmrc .rvmrc
+      - echo Build completed on `date`
+artifacts:
+  files:
+    - .rvmrc
+    - rvm/**/*
+    - roadwork
+    - lambda_function.py
