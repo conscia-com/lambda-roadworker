@@ -4,7 +4,7 @@ Cheap and low-maintenance solution to back up Route53 to S3 using AWS Lambda.
 
 ![Dashsoft](https://dashsoft.dk/static/images/logo.png "Dashsoft logo")
 
-Blog post: TK
+Blog post: [Backing up Route53 with Ruby and Lambda](https://dashsoft.dk/da/blog/Ruby_and_Lambda/)
 
 Website: [https://dashsoft.dk](https://dashsoft.dk)
 
@@ -38,7 +38,7 @@ non-current versions after a month.
 The bucket name is specified in the [tf/terraform.tfvars](../master/tf/terraform.tfvars) file. It should be changed from
 _hennings-roadworker-backup-bucket_ to something that is appropriately and unique for your account.
 
-Compare the Build Environment Reference for AWS CodeBuild with 
+Also compare the [Build Environment Reference for AWS CodeBuild](docs.aws.amazon.com/codebuild/latest/userguide/build-env-ref.html#build-env-ref-available) with 
 [the current lambda environment](http://docs.aws.amazon.com/lambda/latest/dg/current-supported-versions.html "Lambda 
 Execution Environment and Available Libraries") to make sure that the
 `codebuild_image` are compatible with the Lambda execution environment.
@@ -68,7 +68,7 @@ $ aws codebuild create-project --cli-input-json file://codebuild-project.json
 $ aws codebuild start-build --project-name lambda-roadworker
 ```
 
-The software that is being build by the CodeBuild project is specified in the [buildspec.yml](../master/buldspec.yml) file.
+The software that is being build by the CodeBuild project is specified in the [buildspec.yml](../master/buildspec.yml) file.
 
 Follow the build phase of CodeBuild in the AWS Console.
 
@@ -83,8 +83,8 @@ to connect the function and the event rule and allow the event rule to call the 
 
 For the event rule, I’ve chosen a schedule that triggers the backup every 6 hours.
 
-Compared to the previous run, an additional flag needs to be passed to deploy the Lambda function. Run a Terraform plan
-to review the resources that are to be created:
+Compared to the previous run, an additional argument needs to be passed to deploy the Lambda function. Run a Terraform
+plan to review the Lambda function and associated resources that are to be created:
 
 ```
 # terraform plan -var 'with_lambda=1'
@@ -120,9 +120,9 @@ You could also just use the AWS CLI to invoke the function:
 $ aws lambda invoke -function-name RoadworkerRoute53Backup /dev/null
 ```
 
-If the function runs successfully, then you should find a timestamped file in the S3 bucket.
+If the function runs successfully, then you should find a timestamped backup file in the S3 bucket.
 
-### Restoring data
+### Restoring backups <a id="restoring-backups"></a>
 
 Restoring or validating backups can be done from any server og PC with access to update Route53. Install roadworker
 locally and download the needed backup file from S3. 
