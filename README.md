@@ -4,7 +4,7 @@ Cheap and low-maintenance solution to back up Route53 to S3 using AWS Lambda.
 
 ![Dashsoft](https://dashsoft.dk/static/images/logo.png "Dashsoft logo")
 
-Blog post: [Backing up Route53 with Ruby and Lambda](https://dashsoft.dk/da/blog/Ruby_and_Lambda/)
+Blog post: [Backing up Route53 with Ruby and Lambda](https://dashsoft.dk/da/blog/Route53_Lambda_Backups/)
 
 Website: [https://dashsoft.dk](https://dashsoft.dk)
 
@@ -157,6 +157,17 @@ that the backup file isn't suspiciously small and that the Lambda function doesn
 Figure out how to add unsupported native gems to [Traveling Ruby](http://phusion.github.io/traveling-ruby/). One drawback
 of Traveling Ruby is that it supports a limited set of Ruby versions. It is debatable if shaving off a few extra MB's
 are worth the effort and ease of building on rvm.
+
+### Backup based on CloudTrail events instead of scheduled
+
+Could the backup be triggered to run only when changes have been made to Route53. Triggered by a Route53 CloudTrail event?
+
+It does raise the question about how to handle when there is a lot of changes (during restore of a zone, for instance).
+
+Perhaps a combination, where Route53 CloudTrail events (representing changes to Route53) were put on a SQS queue and a
+scheduled job polled the queue every few minutes and only  did a backup when there were items in the queue and then
+subsequently emptied the queue. That might ensure that a restore of a zone with hundreds of records won't generate
+hundreds of backups.
 
 ### Replace CodeBuild with Docker?
 
